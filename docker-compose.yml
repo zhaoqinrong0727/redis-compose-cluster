@@ -1,5 +1,5 @@
 
-# redis-cli -a operator@redis@2019 --cluster create 172.16.238.11:6379 172.16.238.12:6379 172.16.238.13:6379 172.16.238.14:6379 172.16.238.15:6379 172.16.238.16:6379 --cluster-replicas 1
+# redis-cli -a 'operator@redis@2019' --cluster create redis-node-1:6379 redis-node-2:6379 redis-node-3:6379 redis-node-4:6379 redis-node-5:6379 sentinel-9001:6379 --cluster-replicas 1
 version: '3.3'
 services:
   # 节点1
@@ -19,9 +19,9 @@ services:
       - operator
     volumes:
       # 容器的data映射到宿主机
-      - /data/redis/node-${redis1_port}/data:/data
+      - /data/redis/redis-compose-cluster/node-${redis1_port}/data:/data
       # 加载配置文件
-      - /data/redis/node-${redis1_port}/redis.conf:/usr/local/etc/redis/redis.conf
+      - /data/redis/redis-compose-cluster/node-${redis1_port}/redis.conf:/usr/local/etc/redis/redis.conf
     # 启动redis的时候指定配置文件
     command: redis-server /usr/local/etc/redis/redis.conf
     environment: 
@@ -42,9 +42,9 @@ services:
       - operator
     volumes:
       # 容器的data映射到宿主机
-      - /data/redis/node-${redis2_port}/data:/data
+      - /data/redis/redis-compose-cluster/node-${redis2_port}/data:/data
       # 加载配置文件
-      - /data/redis/node-${redis2_port}/redis.conf:/usr/local/etc/redis/redis.conf
+      - /data/redis/redis-compose-cluster/node-${redis2_port}/redis.conf:/usr/local/etc/redis/redis.conf
     # 启动redis的时候指定配置文件  
     command: redis-server /usr/local/etc/redis/redis.conf
     environment: 
@@ -65,9 +65,9 @@ services:
       - operator
     volumes:
       # 容器的data映射到宿主机
-      - /data/redis/node-${redis3_port}/data:/data
+      - /data/redis/redis-compose-cluster/node-${redis3_port}/data:/data
       # 加载配置文件
-      - /data/redis/node-${redis3_port}/redis.conf:/usr/local/etc/redis/redis.conf
+      - /data/redis/redis-compose-cluster/node-${redis3_port}/redis.conf:/usr/local/etc/redis/redis.conf
     # 启动redis的时候指定配置文件
     command: redis-server /usr/local/etc/redis/redis.conf
     environment:
@@ -88,9 +88,9 @@ services:
       - operator
     volumes:
       # 容器的data映射到宿主机
-      - /data/redis/node-${redis4_port}/data:/data
+      - /data/redis/redis-compose-cluster/node-${redis4_port}/data:/data
       # 加载配置文件
-      - /data/redis/node-${redis4_port}/redis.conf:/usr/local/etc/redis/redis.conf
+      - /data/redis/redis-compose-cluster/node-${redis4_port}/redis.conf:/usr/local/etc/redis/redis.conf
     # 启动redis的时候指定配置文件
     command: redis-server /usr/local/etc/redis/redis.conf
     environment:
@@ -111,9 +111,9 @@ services:
       - operator
     volumes:
       # 容器的data映射到宿主机
-      - /data/redis/node-${redis5_port}/data:/data
+      - /data/redis/redis-compose-cluster/node-${redis5_port}/data:/data
       # 加载配置文件
-      - /data/redis/node-${redis5_port}/redis.conf:/usr/local/etc/redis/redis.conf
+      - /data/redis/redis-compose-cluster/node-${redis5_port}/redis.conf:/usr/local/etc/redis/redis.conf
     # 启动redis的时候指定配置文件
     command: redis-server /usr/local/etc/redis/redis.conf
     environment:
@@ -134,9 +134,9 @@ services:
       - operator
     volumes:
       # 容器的data映射到宿主机
-      - /data/redis/node-${redis6_port}/data:/data
+      - /data/redis/redis-compose-cluster/node-${redis6_port}/data:/data
       # 加载配置文件
-      - /data/redis/node-${redis6_port}/redis.conf:/usr/local/etc/redis/redis.conf
+      - /data/redis/redis-compose-cluster/node-${redis6_port}/redis.conf:/usr/local/etc/redis/redis.conf
     # 启动redis的时候指定配置文件
     command: redis-server /usr/local/etc/redis/redis.conf
     environment:
@@ -150,8 +150,8 @@ services:
     networks:
       - operator
     volumes:
-      - /data/redis/sentinel-9001/data:/data
-      - /data/redis/sentinel-9001/sentinel.conf:/usr/local/etc/redis/sentinel.conf
+      - /data/redis/redis-compose-cluster/sentinel-9001/data:/data
+      - /data/redis/redis-compose-cluster/sentinel-9001/sentinel.conf:/usr/local/etc/redis/sentinel.conf
     command: redis-server /usr/local/etc/redis/sentinel.conf --sentinel
 networks:
   operator:
