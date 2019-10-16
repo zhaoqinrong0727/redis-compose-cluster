@@ -154,8 +154,8 @@ services:
       - /data/redis/sentinel-9001/data:/data
       - /data/redis/sentinel-9001/sentinel.conf:/usr/local/etc/redis/sentinel.conf
     command: redis-server /usr/local/etc/redis/sentinel.conf --sentinel
-  networks:
-    operator:
+networks:
+  operator:
 #networks:
 #  # 创建集群网络，在容器之间通信
 #  cluster-net:
