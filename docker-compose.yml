@@ -131,8 +131,7 @@ services:
       - ${redis6_ports}
       - ${redis6_cluster}
     networks:
-        cluster-net:
-          ipv4_address: 172.16.238.16
+      - operator
     volumes:
       # 容器的data映射到宿主机
       - /data/redis/node-${redis6_port}/data:/data
