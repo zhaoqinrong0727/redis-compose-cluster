@@ -151,7 +151,7 @@ services:
       - operator
     volumes:
       - /data/redis/redis-compose-cluster/sentinel-9001/data:/data
-      - /data/redis/redis-compose-cluster/sentinel-9001/sentinel.conf:/usr/local/etc/redis/sentinel.conf
+      - /data/redis/redis-compose-cluster/sentinel-9001/sentinel.conf:/etc/sentinel.conf
     command: redis-server /usr/local/etc/redis/sentinel.conf --sentinel
 networks:
   operator:
