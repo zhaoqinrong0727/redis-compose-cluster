@@ -16,7 +16,8 @@ services:
       - ${redis1_ports}
       - ${redis1_cluster}
     networks:
-      - operator
+        cluster-net:
+          ipv4_address: 172.16.238.11
     volumes:
       # 容器的data映射到宿主机
       - /data/redis/redis-compose-cluster/node-${redis1_port}/data:/data
@@ -39,7 +40,8 @@ services:
       - ${redis2_ports}
       - ${redis2_cluster}
     networks:
-      - operator
+        cluster-net:
+          ipv4_address: 172.16.238.12
     volumes:
       # 容器的data映射到宿主机
       - /data/redis/redis-compose-cluster/node-${redis2_port}/data:/data
@@ -62,7 +64,8 @@ services:
       - ${redis3_ports}
       - ${redis3_cluster}
     networks:
-      - operator
+        cluster-net:
+          ipv4_address: 172.16.238.13
     volumes:
       # 容器的data映射到宿主机
       - /data/redis/redis-compose-cluster/node-${redis3_port}/data:/data
@@ -85,7 +88,8 @@ services:
       - ${redis4_ports}
       - ${redis4_cluster}
     networks:
-      - operator
+        cluster-net:
+          ipv4_address: 172.16.238.14
     volumes:
       # 容器的data映射到宿主机
       - /data/redis/redis-compose-cluster/node-${redis4_port}/data:/data
@@ -108,7 +112,8 @@ services:
       - ${redis5_ports}
       - ${redis5_cluster}
     networks:
-      - operator
+        cluster-net:
+          ipv4_address: 172.16.238.15
     volumes:
       # 容器的data映射到宿主机
       - /data/redis/redis-compose-cluster/node-${redis5_port}/data:/data
@@ -131,7 +136,8 @@ services:
       - ${redis6_ports}
       - ${redis6_cluster}
     networks:
-      - operator
+        cluster-net:
+          ipv4_address: 172.16.238.16
     volumes:
       # 容器的data映射到宿主机
       - /data/redis/redis-compose-cluster/node-${redis6_port}/data:/data
@@ -148,16 +154,15 @@ services:
     ports:
       - 26379:26379
     networks:
-      - operator
+        cluster-net:
+          ipv4_address: 172.16.238.240
     volumes:
       - /data/redis/redis-compose-cluster/sentinel-9001/data:/data
       - /data/redis/redis-compose-cluster/sentinel-9001/sentinel.conf:/usr/local/etc/redis/sentinel.conf
     command: redis-server /usr/local/etc/redis/sentinel.conf --sentinel
 networks:
-  operator:
-#networks:
-#  # 创建集群网络，在容器之间通信
-#  cluster-net:
-#    ipam:
-#      config:
-#        - subnet: 172.16.238.0/24
+  # 创建集群网络，在容器之间通信
+  cluster-net:
+    ipam:
+      config:
+        - subnet: 172.16.238.0/24
