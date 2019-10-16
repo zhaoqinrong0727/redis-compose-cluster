@@ -1,5 +1,5 @@
 
- #redis-cli -a 'operator@redis@2019' --cluster create redis1:6379 redis2:6379 redis3:6379   redis4:6379 redis5:6379 localhost:6379 --cluster-replicas 1
+# redis-cli -a redis --cluster create 172.16.238.11:6379 172.16.238.12:6379 172.16.238.13:6379 172.16.238.14:6379 172.16.238.15:6379 172.16.238.16:6379 --cluster-replicas 1
 version: '3.3'
 services:
   # 节点1
@@ -16,7 +16,8 @@ services:
       - ${redis1_ports}
       - ${redis1_cluster}
     networks:
-      - operator
+        cluster-net:
+          ipv4_address: 172.16.238.11
     volumes:
       # 容器的data映射到宿主机
       - /data/redis/redis-compose-cluster/node-${redis1_port}/data:/data
@@ -39,7 +40,8 @@ services:
       - ${redis2_ports}
       - ${redis2_cluster}
     networks:
-      - operator
+        cluster-net:
+          ipv4_address: 172.16.238.12
     volumes:
       # 容器的data映射到宿主机
       - /data/redis/redis-compose-cluster/node-${redis2_port}/data:/data
@@ -62,7 +64,8 @@ services:
       - ${redis3_ports}
       - ${redis3_cluster}
     networks:
-      - operator
+        cluster-net:
+          ipv4_address: 172.16.238.13
     volumes:
       # 容器的data映射到宿主机
       - /data/redis/redis-compose-cluster/node-${redis3_port}/data:/data
@@ -85,7 +88,8 @@ services:
       - ${redis4_ports}
       - ${redis4_cluster}
     networks:
-      - operator
+        cluster-net:
+          ipv4_address: 172.16.238.14
     volumes:
       # 容器的data映射到宿主机
       - /data/redis/redis-compose-cluster/node-${redis4_port}/data:/data
@@ -108,7 +112,8 @@ services:
       - ${redis5_ports}
       - ${redis5_cluster}
     networks:
-      - operator
+        cluster-net:
+          ipv4_address: 172.16.238.15
     volumes:
       # 容器的data映射到宿主机
       - /data/redis/redis-compose-cluster/node-${redis5_port}/data:/data
@@ -131,7 +136,8 @@ services:
       - ${redis6_ports}
       - ${redis6_cluster}
     networks:
-      - operator
+        cluster-net:
+          ipv4_address: 172.16.238.16
     volumes:
       # 容器的data映射到宿主机
       - /data/redis/redis-compose-cluster/node-${redis6_port}/data:/data
@@ -145,18 +151,11 @@ services:
   sentinel-9001:
     container_name: sentinel-9001
     image: redis
-    links:
-      - redis1
-      - redis2
-      - redis3
-      - redis4
-      - redis5
-      - redis6
     ports:
       - 26379:26379
     networks:
-      - operator
-    privileged: true
+        cluster-net:
+          ipv4_address: 172.16.238.240
     volumes:
       - /data/redis/redis-compose-cluster/sentinel-9001/data:/data
       - /data/redis/redis-compose-cluster/sentinel-9001/:/etc/redis/sen/
@@ -165,10 +164,8 @@ services:
       # 设置时区为上海，否则时间会有问题
       - TZ=Asia/Shanghai
 networks:
-  operator:
-#networks:
-#  # 创建集群网络，在容器之间通信
-#  cluster-net:
-#    ipam:
-#      config:
-#        - subnet: 172.16.238.0/24
+  # 创建集群网络，在容器之间通信
+  cluster-net:
+    ipam:
+      config:
+        - subnet: 172.16.238.0/24
