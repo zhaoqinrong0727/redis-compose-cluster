@@ -149,6 +149,7 @@ services:
       - 26379:26379
     networks:
       - operator
+    privileged: true
     volumes:
       - /data/redis/redis-compose-cluster/sentinel-9001/data:/data
       - /data/redis/redis-compose-cluster/sentinel-9001/:/etc/redis/sen/
