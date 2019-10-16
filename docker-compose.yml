@@ -149,11 +149,10 @@ services:
       - 26379:26379
     networks:
       - operator
-    privileged: true
     volumes:
       - /data/redis/redis-compose-cluster/sentinel-9001/data:/data
-      - /data/redis/redis-compose-cluster/sentinel-9001/sentinel.conf:/etc/sentinel.conf
-    command: redis-server /etc/sentinel.conf --sentinel
+      - /data/redis/redis-compose-cluster/sentinel-9001/:/etc/redis/sen/
+    command: redis-server /etc/redis/sen/sentinel.conf --sentinel
     environment:
       # 设置时区为上海，否则时间会有问题
       - TZ=Asia/Shanghai
