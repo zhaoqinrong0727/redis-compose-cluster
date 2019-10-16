@@ -1,5 +1,5 @@
 
-# redis-cli -a 'operator@redis@2019' --cluster create redis-node-1:6379 redis-node-2:6379 redis-node-3:6379 redis-node-4:6379 redis-node-5:6379 sentinel-9001:6379 --cluster-replicas 1
+ #redis-cli -a 'operator@redis@2019' --cluster create redis-node-1:6379 redis-node-2:6379 redis-node-3:6379  redis-node-4:6379 redis-node-5:6379 sentinel-9001:6379 --cluster-replicas 1
 version: '3.3'
 services:
   # 节点1
