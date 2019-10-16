@@ -1,5 +1,5 @@
 
- #redis-cli -a 'operator@redis@2019' --cluster create redis-node-1:6379 redis-node-2:6379 redis-node-3:6379   redis-node-4:6379 redis-node-5:6379 sentinel-9001:6379 --cluster-replicas 1
+ #redis-cli -a 'operator@redis@2019' --cluster create redis1:6379 redis2:6379 redis3:6379   redis4:6379 redis5:6379 sentinel-9001:6379 --cluster-replicas 1
 version: '3.3'
 services:
   # 节点1
@@ -145,6 +145,13 @@ services:
   sentinel-9001:
     container_name: sentinel-9001
     image: redis
+    links:
+      - redis1
+      - redis2
+      - redis3
+      - redis4
+      - redis5
+      - redis6
     ports:
       - 26379:26379
     networks:
