@@ -10,7 +10,7 @@ services:
       # 环境配置
       - ./.env
     # 使用哪种镜像
-    image: 'redis:5.0.4'
+    image: redis
     # 端口映射
     ports:
       - ${redis1_ports}
@@ -20,9 +20,9 @@ services:
           ipv4_address: 172.16.238.11
     volumes:
       # 容器的data映射到宿主机
-      - /Users/g5niusx/Soft/docker/redis/node-${redis1_port}/data:/data
+      - /data/redis/node-${redis1_port}/data:/data
       # 加载配置文件
-      - /Users/g5niusx/Soft/docker/redis/node-${redis1_port}/redis.conf:/usr/local/etc/redis/redis.conf
+      - /data/redis/node-${redis1_port}/redis.conf:/usr/local/etc/redis/redis.conf
     # 启动redis的时候指定配置文件
     command: redis-server /usr/local/etc/redis/redis.conf
     environment: 
@@ -34,7 +34,7 @@ services:
     env_file: 
       - ./.env
     # 使用哪种镜像
-    image: 'redis:5.0.4'
+    image: redis
     # 端口映射
     ports:
       - ${redis2_ports}
@@ -44,9 +44,9 @@ services:
           ipv4_address: 172.16.238.12
     volumes:
       # 容器的data映射到宿主机
-      - /Users/g5niusx/Soft/docker/redis/node-${redis2_port}/data:/data
+      - /data/redis/node-${redis2_port}/data:/data
       # 加载配置文件
-      - /Users/g5niusx/Soft/docker/redis/node-${redis2_port}/redis.conf:/usr/local/etc/redis/redis.conf
+      - /data/redis/node-${redis2_port}/redis.conf:/usr/local/etc/redis/redis.conf
     # 启动redis的时候指定配置文件  
     command: redis-server /usr/local/etc/redis/redis.conf
     environment: 
@@ -58,7 +58,7 @@ services:
     env_file:
       - ./.env
     # 使用哪种镜像
-    image: 'redis:5.0.4'
+    image: redis
     # 端口映射
     ports:
       - ${redis3_ports}
@@ -68,9 +68,9 @@ services:
           ipv4_address: 172.16.238.13
     volumes:
       # 容器的data映射到宿主机
-      - /Users/g5niusx/Soft/docker/redis/node-${redis3_port}/data:/data
+      - /data/redis/node-${redis3_port}/data:/data
       # 加载配置文件
-      - /Users/g5niusx/Soft/docker/redis/node-${redis3_port}/redis.conf:/usr/local/etc/redis/redis.conf
+      - /data/redis/node-${redis3_port}/redis.conf:/usr/local/etc/redis/redis.conf
     # 启动redis的时候指定配置文件
     command: redis-server /usr/local/etc/redis/redis.conf
     environment:
@@ -82,7 +82,7 @@ services:
     env_file:
       - ./.env
     # 使用哪种镜像
-    image: 'redis:5.0.4'
+    image: redis
     # 端口映射
     ports:
       - ${redis4_ports}
@@ -92,9 +92,9 @@ services:
           ipv4_address: 172.16.238.14
     volumes:
       # 容器的data映射到宿主机
-      - /Users/g5niusx/Soft/docker/redis/node-${redis4_port}/data:/data
+      - /data/redis/node-${redis4_port}/data:/data
       # 加载配置文件
-      - /Users/g5niusx/Soft/docker/redis/node-${redis4_port}/redis.conf:/usr/local/etc/redis/redis.conf
+      - /data/redis/node-${redis4_port}/redis.conf:/usr/local/etc/redis/redis.conf
     # 启动redis的时候指定配置文件
     command: redis-server /usr/local/etc/redis/redis.conf
     environment:
@@ -106,7 +106,7 @@ services:
     env_file:
       - ./.env
     # 使用哪种镜像
-    image: 'redis:5.0.4'
+    image: redis
     # 端口映射
     ports:
       - ${redis5_ports}
@@ -116,9 +116,9 @@ services:
           ipv4_address: 172.16.238.15
     volumes:
       # 容器的data映射到宿主机
-      - /Users/g5niusx/Soft/docker/redis/node-${redis5_port}/data:/data
+      - /data/redis/node-${redis5_port}/data:/data
       # 加载配置文件
-      - /Users/g5niusx/Soft/docker/redis/node-${redis5_port}/redis.conf:/usr/local/etc/redis/redis.conf
+      - /data/redis/node-${redis5_port}/redis.conf:/usr/local/etc/redis/redis.conf
     # 启动redis的时候指定配置文件
     command: redis-server /usr/local/etc/redis/redis.conf
     environment:
@@ -130,7 +130,7 @@ services:
     env_file:
       - ./.env
     # 使用哪种镜像
-    image: 'redis:5.0.4'
+    image: redis
     # 端口映射
     ports:
       - ${redis6_ports}
@@ -140,9 +140,9 @@ services:
           ipv4_address: 172.16.238.16
     volumes:
       # 容器的data映射到宿主机
-      - /Users/g5niusx/Soft/docker/redis/node-${redis6_port}/data:/data
+      - /data/redis/node-${redis6_port}/data:/data
       # 加载配置文件
-      - /Users/g5niusx/Soft/docker/redis/node-${redis6_port}/redis.conf:/usr/local/etc/redis/redis.conf
+      - /data/redis/node-${redis6_port}/redis.conf:/usr/local/etc/redis/redis.conf
     # 启动redis的时候指定配置文件
     command: redis-server /usr/local/etc/redis/redis.conf
     environment:
@@ -150,15 +150,15 @@ services:
       - TZ=Asia/Shanghai
   sentinel-9001:
     container_name: sentinel-9001
-    image: 'redis:5.0.4'
+    image: redis
     ports:
       - 26379:26379
     networks:
         cluster-net:
           ipv4_address: 172.16.238.240
     volumes:
-      - /Users/g5niusx/Soft/docker/redis/sentinel-9001/data:/data
-      - /Users/g5niusx/Soft/docker/redis/sentinel-9001/sentinel.conf:/usr/local/etc/redis/sentinel.conf
+      - /data/redis/sentinel-9001/data:/data
+      - /data/redis/sentinel-9001/sentinel.conf:/usr/local/etc/redis/sentinel.conf
     command: redis-server /usr/local/etc/redis/sentinel.conf --sentinel
 networks:
   # 创建集群网络，在容器之间通信
